@@ -2,13 +2,12 @@ import React from 'react'
 
 const FooterComponent = () => {
   return (
-    <footer class="bg-light text-center text-lg-start">
-        <div class="text-center p-3">
+    <footer className="bg-red text-center text-lg-start">
+        <div className="text-center p-3">
             © 2023 Copyright:
-            <a class="text-dark" href="https://ucn.edu.co/"> UCN</a>
+            <a className="text-dark" href="https://ucn.edu.co/">UCN</a>
         </div>
     </footer>
- 
   )
 }
 
