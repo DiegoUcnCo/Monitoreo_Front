@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import Link from 'next/link';
 import axios from 'axios';
-
+import Image from 'next/image';
 export default function Home() {
   const [temperatureData, setTemperatureData] = useState({ Humedad: 0, Temperatura: 0 });
   const [hydroponicsData, setHydroponicsData] = useState({ Temperatura: 0, Conductividad: 0, pH: 0 });
@@ -76,33 +76,35 @@ export default function Home() {
       suggestions.push("El estado del agua es óptimo para el cultivo en hidroponía.");
     }
 
-    return suggestions.join(' ');
+    return (
+      <div>
+        {suggestions.map((suggestion, index) => (
+          <p key={index}>{suggestion}</p>
+        ))}
+      </div>
+    );
   };
 
   return (
     <section className={styles.Home}>
-      <h1>Bienvenido al sistema de monitoreo</h1>
+      <div className={styles.Header}>
+        <div className={styles.HeaderContent}>
+          <h1>Sistema de Monitoreo</h1>
+          <p className={styles.Subtitle}>Monitoreo avanzado de sensores</p>
+        </div>
+      </div>
       <article>
-        <h2>En esta sección, encontrarás sugerencias y posibles informes basados en los datos de tus sensores.</h2>
-        <div className="row">
-          <div className="col-sm-6 text-center">
-            <div className="card">
-              <div className="card-body">
-                <h5>Estado del agua</h5>
-                <p className="card-text">{renderHydroponicsSuggestions()}</p>
-                <Link href="/views/hidroponia" className="btn btn-primary">Ver estadisticas</Link>
-              </div>
-            </div>
+        <div className={styles.CardContainer}>
+          <div className={`${styles.Card} ${styles.WaterCard}`}>
+            <h2>Estado del Agua</h2>
+            <p className={styles.CardText}>{renderHydroponicsSuggestions()}</p>
+            <Link href="/views/hidroponia" className={`btn ${styles.CardButton}`}>Ver estadísticas</Link>
           </div>
-          <div className="col-sm-6 text-center">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">Estado de la sala</h5>
-                <p className="card-text">{renderTemperatureSuggestions()}</p>
-                <p className="card-text">{renderHumiditySuggestions()}</p>
-                <Link href="/views/temperature" className="btn btn-primary">Ver estadisticas</Link>
-              </div>
-            </div>
+          <div className={`${styles.Card} ${styles.RoomCard}`}>
+            <h2 className={styles.CardTitle}>Estado de la Sala</h2>
+            <p className={styles.CardText}>{renderTemperatureSuggestions()}</p>
+            <p className={styles.CardText}>{renderHumiditySuggestions()}</p>
+            <Link href="/views/temperature" className={`btn ${styles.CardButton}`}>Ver estadísticas</Link>
           </div>
         </div>
       </article>
